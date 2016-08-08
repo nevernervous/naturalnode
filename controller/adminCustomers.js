@@ -1,0 +1,138 @@
+var flashMessages = require('./helper/admin-flashMessages');
+var basicTemplateParams = require('./helper/admin-basicTemplateParams')(flashMessages);
+var config = require('../config');
+
+var adminController = {};
+
+adminController.index = function (req, res, next) {
+  var page = 1;
+  if (req.query.page && Number.isInteger(parseInt(req.query.page)) && req.query.page > 0) {
+    page = parseInt(req.query.page);
+  }
+  models.customer.getLimited(req, res, next, config.tables.limit, page, function (req, res, next, customers) {
+    models.customer.countAll(req, res, next, function (req, res, next, count) {
+      var params = basicTemplateParams(req);
+      params.customers = customers;
+      params.search = '';
+      params.pages = Math.ceil(count / config.tables.limit);
+      params.currentPage = page;
+      res.render('admin-customers', params);
+    });
+  });
+};
+
+adminController.addFromQuote = function (req, res, next) {
+  models.quote.getById(req, res, next, req.params.id, function (req, res, next, quote) {
+    if (!quote.customer) {
+      adminController.createNewFromSampleOrQuote(req, res, next, quote);
+    } else {
+      var err = new Error('Bad request');
+      err.status = 400;
+      next(err);
+    }
+  });
+};
+
+adminController.addFromSample = function (req, res, next) {
+  models.sample.getById(req, res, next, req.params.id, function (req, res, next, sample) {
+    if (!sample.customer) {
+      adminController.createNewFromSampleOrQuote(req, res, next, sample);
+    } else {
+      var err = new Error('Bad request');
+      err.status = 400;
+      next(err);
+    }
+  });
+};
+
+adminController.createNewFromSampleOrQuote = function (req, res, next, sampleOrQuote) {
+  if (!sampleOrQuote) {
+    var err = new Error('Not found');
+    err.status = 404;
+    next(err);
+  }
+  var data = {
+    first_name: sampleOrQuote.name.split(" ")[0],
+    last_name: sampleOrQuote.name.split(" ")[1],
+    email: sampleOrQuote.email,
+    default_address: {
+      phone: sampleOrQuote.number,
+      zip: sampleOrQuote.code,
+      address1: sampleOrQuote.street,
+      address2: '',
+      city: sampleOrQuote.town
+    }
+  };
+  models.customer.insertSingle(req, res, next, data, [], function (req, res, next, customer) {
+    sampleOrQuote.customer = customer;
+    sampleOrQuote.save(function (err) {
+      if (err) {
+        return next(err);
+      }
+      req.flash('success', 'Customer created');
+      return res.redirect(req.header('Referer'));
+    });
+  });
+};
+
+adminController.edit = function (req, res, next) {
+  models.customer.getById(req, res, next, req.params.id, function (req, res, next, customer) {
+    if (!customer) {
+      var error = new Error('Not found');
+      error.status = 404;
+      return next(error);
+    }
+    if (req.method.toString().toLowerCase().valueOf() == "post") {
+      var dataSet = customer;
+      if (req.body.call1) {
+        dataSet['call1st'] = req.body['call1st'] ? true : false;
+      }
+      if (req.body.call2) {
+        dataSet['call2nd'] = req.body['call2nd'] ? true : false;
+      }
+      if (req.body.call3) {
+        dataSet['call3rd'] = req.body['call3rd'] ? true : false;
+      }
+      if (req.body.comments) {
+        dataSet.comments = req.body.comments;
+      }
+      if (req.body.contactToClientDate) {
+        dataSet.contactToClientDate = req.body.contactToClientDate;
+      }
+      if (req.body.clientRepliedDate) {
+        dataSet.clientRepliedDate = req.body.clientRepliedDate;
+      }
+      if (req.body.email) {
+        dataSet.email = req.body.email;
+      }
+      if (req.body.first_name) {
+        dataSet.first_name = req.body.first_name;
+      }
+      if (req.body.last_name) {
+        dataSet.last_name = req.body.last_name;
+      }
+      if (req.body.address1) {
+        dataSet.default_address.address1 = req.body.address1;
+      }
+      if (req.body.city) {
+        dataSet.default_address.city = req.body.city;
+      }
+      if (req.body.phone) {
+        dataSet.default_address.phone = req.body.phone;
+      }
+      if (req.body.zip) {
+        dataSet.default_address.zip = req.body.zip;
+      }
+      models.customer.updateById(req, res, next, customer._id, dataSet, function () {
+        req.flash('success', 'Saved');
+        return res.redirect(req.header('Referer'));
+      });
+    } else {
+      var params = basicTemplateParams(req);
+      params.customer = customer;
+      res.render('admin-customer-edit', params);
+    }
+  });
+};
+
+module.exports = adminController;

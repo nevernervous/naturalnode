@@ -1,0 +1,30 @@
+<%- include _admin-header -%>
+
+<div class="portlet box dark">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Users
+        </div>
+    </div>
+    <div class="portlet-body flip-scroll">
+        <table class="table table-bordered table-striped table-condensed flip-content">
+            <thead class="flip-content">
+                <tr>
+                    <th>Username</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (i in users) { %>
+                <tr>
+                    <td><%= users[i].username %></td>
+                    <td class="text-right"><a href="/admin/users/<%= users[i]._id %>/edit" class="btn btn-sm default next">Edit <i class="fa fa-pencil"></i></a></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <a href="/admin/users/add" class="btn btn-sm default next">Add <i class="fa fa-plus"></i></a>
+    </div>
+</div>
+
+<%- include _admin-footer -%>

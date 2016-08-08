@@ -1,0 +1,110 @@
+<%- include _admin-header -%>
+
+<div class="portlet box dark">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Samples
+        </div>
+    </div>
+    <div class="portlet-body flip-scroll">
+        <div class="search-bar ">
+            <div class="row">
+                <div class="col-md-12">
+                        <form action="" method="get">
+                    <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for sample" name="search" value="<%= search %>" />
+                            <span class="input-group-btn">
+                                <button class="btn dark uppercase bold" type="submit">Search</button>
+                            </span>
+                    </div>
+                        </form>
+                </div>
+                <div class="col-md-5">
+                    <p class="search-desc clearfix"></p>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped table-condensed flip-content">
+            <thead class="flip-content">
+                <tr>
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Email</th>
+                    <th>Tiling</th>
+                    <th>Size</th>
+                    <th>Size 3</th>
+                    <th>Id product</th>
+                    <th>Added</th>
+                    <th>1st call</th>
+                    <th>2nd call</th>
+                    <th>3rd call</th>
+                    <th>Sent?</th>
+                    <th>Print label</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (i in samples) { %>
+                <tr>
+                    <td><a href="/admin/samples/<%= samples[i]._id %>"><a href="/admin/samples/<%= samples[i]._id %>"><%= samples[i].name %></a></a></td>
+                    <td><a href="/admin/samples/<%= samples[i]._id %>"><%= samples[i].number %></a></td>
+                    <td><a href="/admin/samples/<%= samples[i]._id %>"><%= samples[i].email %></a></td>
+                    <td><a href="/admin/samples/<%= samples[i]._id %>"><%= samples[i].tiling %></a></td>
+                    <td><a href="/admin/samples/<%= samples[i]._id %>"><%= samples[i].size_1 %> <%= samples[i].size_2 %></a></td>
+                    <td><a href="/admin/samples/<%= samples[i]._id %>"><%= samples[i].size_3 %></a></td>
+                    <td>
+                        <% if(samples[i].size_3){ %>
+                            <a target="_blank" href="https://naturalstone.myshopify.com/admin/products/<%= samples[i].id_product %>/variants/<%= samples[i].size_3 %>"><%= samples[i].id_product %></a>
+                        <% } else{ %>
+                            <a target="_blank" href="https://naturalstone.myshopify.com/admin/products/<%= samples[i].id_product %>"><%= samples[i].id_product %></a>
+                        <% } %>
+                    </td>
+                    <td><a href="/admin/samples/<%= samples[i]._id %>"><%= datetimeFormater(samples[i].added, 'll') %></a></td>
+
+                    <% if(samples[i].customer){ %>
+                        <td><form method="post" action="/admin/customers/<%= samples[i].customer._id %>/edit">
+                                <input type="hidden" name="call1" value="1" />
+                                <input type="checkbox" name="call1st" value="1" <%= samples[i].customer.call1st ? 'checked' : '' %> onChange="this.form.submit()" />
+                        </form></td>
+                        <td><form method="post" action="/admin/customers/<%= samples[i].customer._id %>/edit">
+                                <input type="hidden" name="call2" value="1" />
+                                <input type="checkbox" name="call2nd" value="1" <%= samples[i].customer.call2nd ? 'checked' : '' %> onChange="this.form.submit()" />
+                        </form></td>
+                        <td><form method="post" action="/admin/customers/<%= samples[i].customer._id %>/edit">
+                                <input type="hidden" name="call3" value="1" />
+                                <input type="checkbox" name="call3rd" value="1" <%= samples[i].customer.call3rd ? 'checked' : '' %> onChange="this.form.submit()" />
+                        </form></td>
+                    <% }else{ %>
+                        <td colspan="3">
+                            <form method="post" action="/admin/customers/from-sample/<%= samples[i]._id %>">
+                                <button type="submit" class="btn btn-sm default">Create customer</button>
+                            </form>
+                        </td>
+                    <% } %>
+                    <td class="text-right">
+                        <% if(samples[i].sent){ %> Sent <% } else{ %>
+                        <form action="/admin/samples/<%= samples[i]._id %>/mark-as-sent" method="post">
+                            <button type="submit" class="btn btn-sm default">Mark as sent</button>
+                        </form>
+                        <% } %>
+                    </a></td>
+                    <td class="text-right"><a href="/admin/samples/<%= samples[i]._id %>/shipping-label.pdf" class="btn btn-sm default" target="_blank"><i class="fa fa-file-pdf-o"></i></a></a></td>
+                    <td class="text-right"><a href="/admin/samples/<%= samples[i]._id %>/edit" class="btn btn-sm default next">Edit <i class="fa fa-pencil"></i></a></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="dataTables_paginate paging_bootstrap_extended">
+            <div class="pagination-panel">
+                Page
+                <a href="/admin/samples/?page=<%= currentPage > 1 ? currentPage - 1 : 1 %><% if(search){ %>&search=<%= search %><% } %>" class="btn btn-sm default prev <%= currentPage > 1 ? '' : 'disabled' %>"><i class="fa fa-angle-left"></i></a>
+                <input type="text" class="pagination-panel-input form-control input-sm input-inline input-mini" maxlenght="5" value="<%= currentPage %>" style="text-align:center; margin: 0 5px;" onchange="var p = this.value; if (p && parseInt(p) % 1 == 0 && p > 0 && p <= <%= pages %> ){ window.location.href = '/admin/samples/?page=' + parseInt(p) + '<%- (search ? '&search=' + search : '') %>';} else {this.value = <%= currentPage %> }">
+                <a href="/admin/samples/?page=<%= currentPage < pages ? currentPage + 1 : pages %><% if(search){ %>&search=<%= search %><% } %>" class="btn btn-sm default next <%= currentPage < pages ? '' : 'disabled' %>"><i class="fa fa-angle-right"></i></a>
+                of
+                <span class="pagination-panel-total"><%= pages %></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include _admin-footer -%>

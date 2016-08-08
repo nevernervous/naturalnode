@@ -1,0 +1,114 @@
+<%- include _admin-header -%>
+
+<div class="portlet light form-fit bordered">
+    <div class="portlet-title">
+        <div class="caption"><i class="fa fa-user"></i>
+            <span class="caption-subject sbold uppercase">
+                Sample edit
+            </span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="" class="form-horizontal form-bordered" method="post">
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="control-label col-md-3">Name</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="name" <%= sample.customer ? 'disabled' : '' %> value="<%= sample.name %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Number</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="number" <%= sample.customer ? 'disabled' : '' %> value="<%= sample.number %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Email</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="email" <%= sample.customer ? 'disabled' : '' %> value="<%= sample.email %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Code</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="code" <%= sample.customer ? 'disabled' : '' %> value="<%= sample.code %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Street</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="street" <%= sample.customer ? 'disabled' : '' %> value="<%= sample.street %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Town</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="town" <%= sample.customer ? 'disabled' : '' %> value="<%= sample.town %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Tiling</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="tiling" value="<%= sample.tiling %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Size 1</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="size_1" value="<%= sample.size_1 %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Size 2</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="size_2" value="<%= sample.size_2 %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Size 3</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="size_3" value="<%= sample.size_3 %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Product id</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="id_product" value="<%= sample.id_product %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Product title</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="title_product" value="<%= sample.title_product %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Subscribe</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="subscribe" value="<%= sample.subscribe %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Notes</label>
+                    <div class="col-md-4">
+                        <textarea class="form-control" name="notes"><%= sample.notes %></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button type="submit" class="btn dark">
+                            <i class="fa fa-check"></i> Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>
+
+<%- include _admin-footer -%>

@@ -1,0 +1,6 @@
+.form-group-small{
+    padding: 5px 0 !important;
+}
+.form-group-small .control-label{
+	padding-top: 0;
+}

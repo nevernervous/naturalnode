@@ -1,0 +1,237 @@
+<%- include _admin-header -%>
+
+
+<div class="portlet light form-fit bordered">
+    <div class="portlet-title">
+        <div class="caption"><i class="fa fa-user"></i>
+            <span class="caption-subject sbold uppercase">
+                Sample view
+            </span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <div class="form-horizontal form-row-seperated">
+            <div class="form-body">
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Name
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.name %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Number
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.number %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Email
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.email %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Code
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.code %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Street
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.street %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Town
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.town %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Tiling
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.tiling %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Size 1
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.size_1 %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Size 2
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.size_2 %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Product
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.title_product %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Product id
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.id_product %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Subscribe
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.subscribe %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Added
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.added %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Notes
+                    </div>
+                    <div class="col-md-10 text-right">
+                        <%= sample.notes %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Request created
+                    </div>
+                    <div class="col-md-10">
+                        <%= sample.requestCreated %>
+                    </div>
+                </div>
+                <% if(sample.customer){ %>
+                    <div class="form-group form-group-small">
+                        <div class="col-md-2 control-label" style="text-align:left">
+                            Client replied date:
+                        </div>
+                        <form method="post" action="/admin/customers/<%= sample.customer._id %>/edit">
+                            <div class="col-md-9">
+                                <div class="input-group date form_datetime" data-date="<%= sample.customer.clientRepliedDate %>">
+                                    <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                    <input value="<%= sample.customer.clientRepliedDate %>" name="clientRepliedDate" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn dark">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form-group form-group-small">
+                        <div class="col-md-2 control-label" style="text-align:left">
+                            Contact to client date:
+                        </div>
+                        <form method="post" action="/admin/customers/<%= sample.customer._id %>/edit">
+                            <div class="col-md-9">
+                                <div class="input-group date form_datetime" data-date="<%= sample.customer.contactToClientDate %>">
+                                    <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                    <input value="<%= sample.customer.contactToClientDate %>" name="contactToClientDate" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn dark">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form-group form-group-small">
+                        <div class="col-md-2 control-label" style="text-align:left">
+                            Comments:
+                        </div>
+                        <form method="post" action="/admin/customers/<%= sample.customer._id %>/edit">
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="comments"><%= sample.customer.comments %></textarea>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn dark">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form-group form-group-small">
+                        <div class="col-md-2 control-label" style="text-align:left">
+                            1st call:
+                        </div>
+                        <form method="post" action="/admin/customers/<%= sample.customer._id %>/edit">
+                            <div class="col-md-10">
+                                <input type="hidden" name="call1" value="1" />
+                                <input type="checkbox" name="call1st" value="1" <%= sample.customer.call1st ? 'checked' : '' %> onChange="this.form.submit()" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form-group form-group-small">
+                        <div class="col-md-2 control-label" style="text-align:left">
+                            2nd call:
+                        </div>
+                        <form method="post" action="/admin/customers/<%= sample.customer._id %>/edit">
+                            <div class="col-md-10">
+                                <input type="hidden" name="call2" value="2" />
+                                <input type="checkbox" name="call2nd" value="1" <%= sample.customer.call2nd ? 'checked' : '' %> onChange="this.form.submit()" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form-group form-group-small">
+                        <div class="col-md-2 control-label" style="text-align:left">
+                            3rd call:
+                        </div>
+                        <form method="post" action="/admin/customers/<%= sample.customer._id %>/edit">
+                            <div class="col-md-10">
+                                <input type="hidden" name="call3" value="1" />
+                                <input type="checkbox" name="call3rd" value="1" <%= sample.customer.call3rd ? 'checked' : '' %> onChange="this.form.submit()" />
+                            </div>
+                        </form>
+                    </div>
+                <% }else{ %>
+                    <div class="form-group form-group-small">
+                        <div class="col-md-2 control-label" style="text-align:left">
+                        </div>
+                        <div class="col-md-10">
+                            <form method="post" action="/admin/customers/from-sample/<%= sample._id %>">
+                                <button type="submit" class="btn btn-sm default">Create customer</button>
+                            </form>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include _admin-footer -%>

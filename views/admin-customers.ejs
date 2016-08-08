@@ -1,0 +1,64 @@
+<%- include _admin-header -%>
+
+<div class="portlet box dark">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Customers
+        </div>
+    </div>
+    <div class="portlet-body flip-scroll">
+        <table class="table table-bordered table-striped table-condensed flip-content">
+            <thead class="flip-content">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Adress</th>
+                    <th>City</th>
+                    <th>Code</th>
+                    <th>1st call</th>
+                    <th>2nd call</th>
+                    <th>3rd call</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (i in customers) { %>
+                <tr>
+                    <td><%= customers[i].first_name %> <%= customers[i].last_name %></td>
+                    <td><%= customers[i].email %></td>
+                    <td><%= customers[i].default_address.phone %></td>
+                    <td><%= customers[i].default_address.address1 %> <%= customers[i].default_address.address2 %></td>
+                    <td><%= customers[i].default_address.city %></td>
+                    <td><%= customers[i].default_address.zip %></td>
+                    <td><form method="post" action="/admin/customers/<%= customers[i]._id %>/edit">
+                            <input type="hidden" name="call1" value="1" />
+                            <input type="checkbox" name="call1st" value="1" <%= customers[i].call1st ? 'checked' : '' %> onChange="this.form.submit()" />
+                    </form></td>
+                    <td><form method="post" action="/admin/customers/<%= customers[i]._id %>/edit">
+                            <input type="hidden" name="call2" value="1" />
+                            <input type="checkbox" name="call2nd" value="1" <%= customers[i].call2nd ? 'checked' : '' %> onChange="this.form.submit()" />
+                    </form></td>
+                    <td><form method="post" action="/admin/customers/<%= customers[i]._id %>/edit">
+                            <input type="hidden" name="call3" value="1" />
+                            <input type="checkbox" name="call3rd" value="1" <%= customers[i].call3rd ? 'checked' : '' %> onChange="this.form.submit()" />
+                    </form></td>
+                    <td class="text-right"><a href="/admin/customers/<%= customers[i]._id %>/edit" class="btn btn-sm default next">Edit <i class="fa fa-pencil"></i></a></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="dataTables_paginate paging_bootstrap_extended">
+            <div class="pagination-panel">
+                Page
+                <a href="/admin/customers/?page=<%= currentPage > 1 ? currentPage - 1 : 1 %><% if(search){ %>&search=<%= search %><% } %>" class="btn btn-sm default prev <%= currentPage > 1 ? '' : 'disabled' %>"><i class="fa fa-angle-left"></i></a>
+                <input type="text" class="pagination-panel-input form-control input-sm input-inline input-mini" maxlenght="5" value="<%= currentPage %>" style="text-align:center; margin: 0 5px;" onchange="var p = this.value; if (p && parseInt(p) % 1 == 0 && p > 0 && p <= <%= pages %> ){ window.location.href = '/admin/customers/?page=' + parseInt(p) + '<%- (search ? '&search=' + search : '') %>';} else {this.value = <%= currentPage %> }">
+                <a href="/admin/customers/?page=<%= currentPage < pages ? currentPage + 1 : pages %><% if(search){ %>&search=<%= search %><% } %>" class="btn btn-sm default next <%= currentPage < pages ? '' : 'disabled' %>"><i class="fa fa-angle-right"></i></a>
+                of
+                <span class="pagination-panel-total"><%= pages %></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include _admin-footer -%>

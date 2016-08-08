@@ -1,0 +1,216 @@
+<%- include _admin-header -%>
+
+<div class="portlet light form-fit bordered">
+    <div class="portlet-title">
+        <div class="caption"><i class="fa fa-user"></i>
+            <span class="caption-subject sbold uppercase">
+                Quote view
+            </span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <div class="form-horizontal form-row-seperated">
+            <div class="form-body">
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Name
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.name %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Number
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.number %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Email
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.email %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Code
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.code %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Street
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.street %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Town
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.town %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Tiling
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.tiling %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Size 1
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.size_1 %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Size 2
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.size_2 %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Product
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.title_product %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Product id
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.id_product %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Fitting
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.quote_f %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Quote Recommended
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.quote_r %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Subscribe
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.subscribe %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Added
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.added %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Notes
+                    </div>
+                    <div class="col-md-10 text-right">
+                        <%= quote.notes %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Request created
+                    </div>
+                    <div class="col-md-10">
+                        <%= quote.requestCreated %>
+                    </div>
+                </div>
+                <% if(quote.customer){ %>
+                    <form method="post" action="/admin/customers/<%= quote.customer._id %>/edit">
+                        <div class="form-group form-group-small">
+                            <div class="col-md-2 control-label" style="text-align:left">
+                                Client replied date:
+                            </div>
+                                <div class="col-md-9">
+                                    <div class="input-group date form_datetime" data-date="<%= quote.customer.clientRepliedDate %>">
+                                        <span class="input-group-btn">
+                                            <button class="btn default date-set" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                        <input value="<%= quote.customer.clientRepliedDate %>" name="clientRepliedDate" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn dark">Save</button>
+                                </div>
+                        </div>
+                        <div class="form-group form-group-small">
+                            <div class="col-md-2 control-label" style="text-align:left">
+                                Contact to client date:
+                            </div>
+                                <div class="col-md-9">
+                                    <div class="input-group date form_datetime" data-date="<%= quote.customer.contactToClientDate %>">
+                                        <span class="input-group-btn">
+                                            <button class="btn default date-set" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                        <input value="<%= quote.customer.contactToClientDate %>" name="contactToClientDate" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn dark">Save</button>
+                                </div>
+                        </div>
+                        <div class="form-group form-group-small">
+                            <div class="col-md-2 control-label" style="text-align:left">
+                                Comments:
+                            </div>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" name="comments"><%= quote.customer.comments %></textarea>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn dark">Save</button>
+                                </div>
+                        </div>
+                    </form>
+                <% }else{ %>
+                    <div class="form-group form-group-small">
+                        <div class="col-md-2 control-label" style="text-align:left">
+                        </div>
+                        <div class="col-md-10">
+                            <form method="post" action="/admin/customers/from-quote/<%= quote._id %>">
+                                <button type="submit" class="btn btn-sm default">Create customer</button>
+                            </form>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include _admin-footer -%>
