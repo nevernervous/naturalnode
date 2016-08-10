@@ -37,7 +37,9 @@
                     <th>Size</th>
                     <th>Size 3</th>
                     <th>Id product</th>
+                    <th>Date</th>
                     <th>Added</th>
+                    <th>Customer</th>
                     <th></th>
                 </tr>
             </thead>
@@ -58,6 +60,11 @@
                         <% } %>
                     </td>
                     <td><a href="/admin/quotes/<%= quotes[i]._id %>"><%= datetimeFormater(quotes[i].added, 'll') %></a></td>
+                    <td>
+                        <form method="post" action="/admin/customers/from-quote/<%= quotes[i]._id %>">
+                            <button type="submit" class="btn btn-sm default">Create</button>
+                        </form>
+                    </td>
                     <td class="text-right"><a href="/admin/quotes/<%= quotes[i]._id %>/edit" class="btn btn-sm default next">Edit <i class="fa fa-pencil"></i></a></td>
                 </tr>
                 <% } %>

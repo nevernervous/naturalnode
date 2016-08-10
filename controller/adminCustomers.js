@@ -26,9 +26,11 @@ adminController.addFromQuote = function (req, res, next) {
     if (!quote.customer) {
       adminController.createNewFromSampleOrQuote(req, res, next, quote);
     } else {
-      var err = new Error('Bad request');
-      err.status = 400;
-      next(err);
+//      var err = new Error('Bad request');
+//      err.status = 400;
+//      next(err);
+        req.flash('warning', 'Customer already exists');
+        return res.redirect(req.header('Referer'));
     }
   });
 };
@@ -38,9 +40,11 @@ adminController.addFromSample = function (req, res, next) {
     if (!sample.customer) {
       adminController.createNewFromSampleOrQuote(req, res, next, sample);
     } else {
-      var err = new Error('Bad request');
-      err.status = 400;
-      next(err);
+//      var err = new Error('Bad request');
+//      err.status = 400;
+//      next(err);
+        req.flash('warning', 'Customer already exists');
+        return res.redirect(req.header('Referer'));
     }
   });
 };
@@ -101,6 +105,24 @@ adminController.edit = function (req, res, next) {
       }
       if (req.body.clientRepliedDate) {
         dataSet.clientRepliedDate = req.body.clientRepliedDate;
+      }
+      if (req.body.comments2) {
+        dataSet.comments2 = req.body.comments2;
+      }
+      if (req.body.contactToClientDate2) {
+        dataSet.contactToClientDate2 = req.body.contactToClientDate2;
+      }
+      if (req.body.clientRepliedDate2) {
+        dataSet.clientRepliedDate2 = req.body.clientRepliedDate2;
+      }
+      if (req.body.comments3) {
+        dataSet.comments3 = req.body.comments3;
+      }
+      if (req.body.contactToClientDate3) {
+        dataSet.contactToClientDate3 = req.body.contactToClientDate3;
+      }
+      if (req.body.clientRepliedDate3) {
+        dataSet.clientRepliedDate3 = req.body.clientRepliedDate3;
       }
       if (req.body.email) {
         dataSet.email = req.body.email;

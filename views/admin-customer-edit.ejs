@@ -12,100 +12,168 @@
         <!-- BEGIN FORM-->
         <form action="" class="form-horizontal form-bordered" method="post">
             <div class="form-body">
-                <div class="form-group">
-                    <label class="control-label col-md-3">First name</label>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" name="first_name" value="<%= customer.first_name %>">
+                <div class="col-md-6">
+                    <div class="form-group">
+                            <label class="control-label col-md-3">First name</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="first_name" value="<%= customer.first_name %>">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Last name</label>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" name="last_name" value="<%= customer.last_name %>">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Last name</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="last_name" value="<%= customer.last_name %>">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Email</label>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" name="email" value="<%= customer.email %>">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Email</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="email" value="<%= customer.email %>">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Phone</label>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" name="phone" value="<%= customer.default_address.phone %>">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Phone</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="phone" value="<%= customer.default_address.phone %>">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Address</label>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" name="address1" value="<%= customer.default_address.address1 %>">
-                        <!-- input type="text" class="form-control" name="adsdress2" value="<%= customer.default_address.address2 %>" -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Address</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="address1" value="<%= customer.default_address.address1 %>">
+                            <!-- input type="text" class="form-control" name="adsdress2" value="<%= customer.default_address.address2 %>" -->
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">City</label>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" name="city" value="<%= customer.default_address.city %>">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">City</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="city" value="<%= customer.default_address.city %>">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Code</label>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" name="zip" value="<%= customer.default_address.zip %>">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Contact to client</label>
-                    <div class="col-md-4">
-                        <div class="input-group date form_datetime" data-date="<%= customer.contactToClientDate %>">
-                            <span class="input-group-btn">
-                                <button class="btn default date-set" type="button">
-                                    <i class="fa fa-calendar"></i>
-                                </button>
-                            </span>
-                            <input value="<%= customer.contactToClientDate %>" name="contactToClientDate" class="form-control" />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Code</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="zip" value="<%= customer.default_address.zip %>">
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Client replied</label>
-                    <div class="col-md-4">
-                        <div class="input-group date form_datetime" data-date="<%= customer.clientRepliedDate %>">
-                            <span class="input-group-btn">
-                                <button class="btn default date-set" type="button">
-                                    <i class="fa fa-calendar"></i>
-                                </button>
-                            </span>
-                            <input value="<%= customer.clientRepliedDate %>" name="clientRepliedDate" class="form-control" />
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Contact to client</label>
+                        <div class="col-md-4">
+                            <div class="input-group date form_datetime" data-date="<%= customer.contactToClientDate %>">
+                                <span class="input-group-btn">
+                                    <button class="btn default date-set" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                                <input value="<%= customer.contactToClientDate %>" name="contactToClientDate" class="form-control" />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Comments</label>
-                    <div class="col-md-4">
-                        <textarea class="form-control" name="comments"><%= customer.comments %></textarea>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Client replied</label>
+                        <div class="col-md-4">
+                            <div class="input-group date form_datetime" data-date="<%= customer.clientRepliedDate %>">
+                                <span class="input-group-btn">
+                                    <button class="btn default date-set" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                                <input value="<%= customer.clientRepliedDate %>" name="clientRepliedDate" class="form-control" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">1st call</label>
-                    <div class="col-md-4">
-                            <input type="hidden" name="call1" value="1" />
-                            <input type="checkbox" name="call1st" value="1" <%= customer.call1st ? 'checked' : '' %> />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Comments</label>
+                        <div class="col-md-4">
+                            <textarea class="form-control" name="comments"><%= customer.comments %></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">2rd call</label>
-                    <div class="col-md-4">
-                            <input type="hidden" name="call2" value="1" />
-                            <input type="checkbox" name="call2nd" value="1" <%= customer.call2nd ? 'checked' : '' %> />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Second contact to client</label>
+                        <div class="col-md-4">
+                            <div class="input-group date form_datetime" data-date="<%= customer.contactToClientDate2 %>">
+                                <span class="input-group-btn">
+                                    <button class="btn default date-set" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                                <input value="<%= customer.contactToClientDate2 %>" name="contactToClientDate2" class="form-control" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">3rd call</label>
-                    <div class="col-md-4">
-                            <input type="hidden" name="call3" value="1" />
-                            <input type="checkbox" name="call3rd" value="1" <%= customer.call3rd ? 'checked' : '' %> />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Second Client reply</label>
+                        <div class="col-md-4">
+                            <div class="input-group date form_datetime" data-date="<%= customer.clientRepliedDate2 %>">
+                                <span class="input-group-btn">
+                                    <button class="btn default date-set" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                                <input value="<%= customer.clientRepliedDate2 %>" name="clientRepliedDate2" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Second Comments</label>
+                        <div class="col-md-4">
+                            <textarea class="form-control" name="comments2"><%= customer.comments2 %></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Third Contact to client</label>
+                        <div class="col-md-4">
+                            <div class="input-group date form_datetime" data-date="<%= customer.contactToClientDate3 %>">
+                                <span class="input-group-btn">
+                                    <button class="btn default date-set" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                                <input value="<%= customer.contactToClientDate3 %>" name="contactToClientDate3" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Third Client replied</label>
+                        <div class="col-md-4">
+                            <div class="input-group date form_datetime" data-date="<%= customer.clientRepliedDate3 %>">
+                                <span class="input-group-btn">
+                                    <button class="btn default date-set" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                                <input value="<%= customer.clientRepliedDate3 %>" name="clientRepliedDate3" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Third Comments</label>
+                        <div class="col-md-4">
+                            <textarea class="form-control" name="comments"><%= customer.comments %></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">1st call</label>
+                        <div class="col-md-4">
+                                <input type="hidden" name="call1" value="1" />
+                                <input type="checkbox" name="call1st" value="1" <%= customer.call1st ? 'checked' : '' %> />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">2rd call</label>
+                        <div class="col-md-4">
+                                <input type="hidden" name="call2" value="1" />
+                                <input type="checkbox" name="call2nd" value="1" <%= customer.call2nd ? 'checked' : '' %> />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">3rd call</label>
+                        <div class="col-md-4">
+                                <input type="hidden" name="call3" value="1" />
+                                <input type="checkbox" name="call3rd" value="1" <%= customer.call3rd ? 'checked' : '' %> />
+                        </div>
                     </div>
                 </div>
             </div>

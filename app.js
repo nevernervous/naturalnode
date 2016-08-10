@@ -28,6 +28,7 @@ var config = require('./config.js');
 
 var app = express();
 
+
 var controllers_path = './controller';
 var rest_controllers_path = './rest-controller';
 var models_path = './model';
