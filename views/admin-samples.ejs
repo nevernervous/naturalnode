@@ -35,9 +35,7 @@
                     <th>Size 3</th>
                     <th>Id product</th>
                     <th>Added</th>
-                    <th>1st call</th>
-                    <th>2nd call</th>
-                    <th>3rd call</th>
+                    <th>Customer</th>
                     <th>Sent?</th>
                     <th>Print label</th>
                     <th></th>
@@ -60,27 +58,11 @@
                         <% } %>
                     </td>
                     <td><a href="/admin/samples/<%= samples[i]._id %>"><%= datetimeFormater(samples[i].added, 'll') %></a></td>
-
-                    <% if(samples[i].customer){ %>
-                        <td><form method="post" action="/admin/customers/<%= samples[i].customer._id %>/edit">
-                                <input type="hidden" name="call1" value="1" />
-                                <input type="checkbox" name="call1st" value="1" <%= samples[i].customer.call1st ? 'checked' : '' %> onChange="this.form.submit()" />
-                        </form></td>
-                        <td><form method="post" action="/admin/customers/<%= samples[i].customer._id %>/edit">
-                                <input type="hidden" name="call2" value="1" />
-                                <input type="checkbox" name="call2nd" value="1" <%= samples[i].customer.call2nd ? 'checked' : '' %> onChange="this.form.submit()" />
-                        </form></td>
-                        <td><form method="post" action="/admin/customers/<%= samples[i].customer._id %>/edit">
-                                <input type="hidden" name="call3" value="1" />
-                                <input type="checkbox" name="call3rd" value="1" <%= samples[i].customer.call3rd ? 'checked' : '' %> onChange="this.form.submit()" />
-                        </form></td>
-                    <% }else{ %>
-                        <td colspan="3">
+                        <td>
                             <form method="post" action="/admin/customers/from-sample/<%= samples[i]._id %>">
                                 <button type="submit" class="btn btn-sm default">Create customer</button>
                             </form>
                         </td>
-                    <% } %>
                     <td class="text-right">
                         <% if(samples[i].sent){ %> Sent <% } else{ %>
                         <form action="/admin/samples/<%= samples[i]._id %>/mark-as-sent" method="post">
