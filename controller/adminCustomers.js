@@ -26,9 +26,6 @@ adminController.addFromQuote = function (req, res, next) {
     if (!quote.customer) {
       adminController.createNewFromSampleOrQuote(req, res, next, quote);
     } else {
-//      var err = new Error('Bad request');
-//      err.status = 400;
-//      next(err);
         req.flash('warning', 'Customer already exists');
         return res.redirect(req.header('Referer'));
     }
@@ -40,9 +37,6 @@ adminController.addFromSample = function (req, res, next) {
     if (!sample.customer) {
       adminController.createNewFromSampleOrQuote(req, res, next, sample);
     } else {
-//      var err = new Error('Bad request');
-//      err.status = 400;
-//      next(err);
         req.flash('warning', 'Customer already exists');
         return res.redirect(req.header('Referer'));
     }
