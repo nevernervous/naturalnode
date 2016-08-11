@@ -56,6 +56,27 @@
                             <input type="text" class="form-control" name="zip" value="<%= customer.default_address.zip %>">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">1st call</label>
+                        <div class="col-md-4">
+                            <input type="hidden" name="call1" value="1" />
+                            <input type="checkbox" name="call1st" value="1" <%= customer.call1st ? 'checked' : '' %> />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">2nd call</label>
+                        <div class="col-md-4">
+                            <input type="hidden" name="call2" value="1" />
+                            <input type="checkbox" name="call2nd" value="1" <%= customer.call2nd ? 'checked' : '' %> />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">3rd call</label>
+                        <div class="col-md-4">
+                            <input type="hidden" name="call3" value="1" />
+                            <input type="checkbox" name="call3rd" value="1" <%= customer.call3rd ? 'checked' : '' %> />
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-8">
                         <div class="form-group">
@@ -152,29 +173,6 @@
                             <label class="control-label col-md-2">Comments</label>
                             <div class="col-md-8">
                                 <textarea class="form-control" name="comments"><%= customer.comments %></textarea>
-                            </div>
-                        </div>
-                </div>
-                <div class="col-xs-2">
-                        <div class="form-group">
-                            <label class="control-label col-md-2">1st call</label>
-                            <div class="col-md-4">
-                                    <input type="hidden" name="call1" value="1" />
-                                    <input type="checkbox" name="call1st" value="1" <%= customer.call1st ? 'checked' : '' %> />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">2nd call</label>
-                            <div class="col-md-4">
-                                    <input type="hidden" name="call2" value="1" />
-                                    <input type="checkbox" name="call2nd" value="1" <%= customer.call2nd ? 'checked' : '' %> />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">3rd call</label>
-                            <div class="col-md-4">
-                                    <input type="hidden" name="call3" value="1" />
-                                    <input type="checkbox" name="call3rd" value="1" <%= customer.call3rd ? 'checked' : '' %> />
                             </div>
                         </div>
                 </div>
