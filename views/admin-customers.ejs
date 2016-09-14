@@ -7,19 +7,36 @@
         </div>
     </div>
     <div class="portlet-body flip-scroll">
+        <div class="search-bar ">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for customers" name="search" value="<%= search %>" />
+                            <span class="input-group-btn">
+                                <button class="btn dark uppercase bold" type="submit">Search</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                    <p class="search-desc clearfix"></p>
+                </div>
+            </div>
+        </div>
         <table class="table table-bordered table-striped table-condensed flip-content">
             <thead class="flip-content">
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Adress</th>
+                    <th>Address</th>
                     <th>City</th>
                     <th>Code</th>
                     <th>1st call</th>
                     <th>2nd call</th>
                     <th>3rd call</th>
-                    <th></th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
