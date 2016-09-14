@@ -111,6 +111,7 @@ adminController.edit = function (req, res, next) {
       quote.id_product = req.body.id_product;
       quote.title_product = req.body.title_product;
       quote.subscribe = req.body.subscribe;
+      quote.status = req.body.status;
       quote.notes = req.body.notes;
       quote.save(function () {
         req.flash('success', 'Saved');

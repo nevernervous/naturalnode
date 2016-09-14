@@ -18,6 +18,7 @@ var QuoteSchema = new Schema({
   title_product: {type: String, required: false},
   gclid: {type: String, required: false},
   subscribe: {type: String, required: false},
+  status: {type: String, required: false},
   notes: {type: String, required: false},
   customer: {type: mongoose.Schema.Types.ObjectId, ref: 'Customer', required: false, default: null},
   requestCreated: {type: String, required: false},
@@ -43,6 +44,7 @@ QuoteSchema.statics.insertSingle = function (req, res, next, data, callback) {
     title_product: data.title_product,
     gclid: data.gclid,
     subscribe: data.subscribe,
+    status: data.status,
     notes: data.notes,
     requestCreated: data.requestCreated,
     customer: data.customer

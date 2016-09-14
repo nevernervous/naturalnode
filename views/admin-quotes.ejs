@@ -39,6 +39,7 @@
                     <th>Product name</th>
                     <th>Id product</th>
                     <th>Date</th>
+                    <th>Status</th>
                     <th>Customer</th>
                     <th>Edit</th>
 
@@ -62,6 +63,7 @@
                         <% } %>
                     </td>
                     <td><a href="/admin/quotes/<%= quotes[i]._id %>"><%= datetimeFormater(quotes[i].added, 'll') %></a></td>
+                    <td><%= quotes[i].status %></td>
                     <td>
                         <form method="post" action="/admin/customers/from-quote/<%= quotes[i]._id %>">
                             <button type="submit" class="btn btn-sm default">Create</button>
