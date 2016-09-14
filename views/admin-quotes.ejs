@@ -36,6 +36,7 @@
                     <th>Tiling</th>
                     <th>Size</th>
                     <th>Size 3</th>
+                    <th>Product name</th>
                     <th>Id product</th>
                     <th>Date</th>
                     <th>Customer</th>
@@ -52,6 +53,7 @@
                     <td><a href="/admin/quotes/<%= quotes[i]._id %>"><%= quotes[i].tiling %></a></td>
                     <td><a href="/admin/quotes/<%= quotes[i]._id %>"><%= quotes[i].size_1 %> <%= quotes[i].size_2 %></a></td>
                     <td><a href="/admin/quotes/<%= quotes[i]._id %>"><%= quotes[i].size_3 %></a></td>
+                    <td><%= quotes[i].title_product %></td>
                     <td>
                         <% if(quotes[i].size_3){ %>
                             <a target="_blank" href="https://naturalstone.myshopify.com/admin/products/<%= quotes[i].id_product %>/variants/<%= quotes[i].size_3 %>"><%= quotes[i].id_product %></a>
