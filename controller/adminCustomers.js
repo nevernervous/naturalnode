@@ -10,20 +10,20 @@ adminController.index = function (req, res, next) {
     page = parseInt(req.query.page);
   }
       if (req.query.search) {
-        models.customer.getFullSearchLimitedPopulated(req, res, next, config.tables.limit, page, req.query.search, function (req, res, next, customer) {
+        models.customer.getFullSearchLimitedPopulated(req, res, next, config.tables.limit, page, req.query.search, function (req, res, next, customers) {
           for (var i in customers) {
-            if (customer[i].customer) {
-              customer[i].name = (customer[i].customer.company ? customer[i].customer.company + ' ' : '') + customer[i].customer.first_name + ' ' + customer[i].customer.last_name;
-              customer[i].number = customer[i].customer.default_address.phone;
-              customer[i].email = customer[i].customer.email;
-              customer[i].code = customer[i].customer.default_address.zip;
-              customer[i].street = customer[i].customer.default_address.address1 + ' ' + customer[i].customer.default_address.address2;
-              customer[i].town = customer[i].customer.default_address.city;
+            if (customers[i].customers) {
+              customers[i].name = (customers[i].customer.company ? customers[i].customer.company + ' ' : '') + customers[i].customer.first_name + ' ' + customers[i].customer.last_name;
+              customers[i].number = customers[i].customer.default_address.phone;
+              customers[i].email = customers[i].customer.email;
+              customers[i].code = customers[i].customer.default_address.zip;
+              customers[i].street = customers[i].customer.default_address.address1 + ' ' + customers[i].customer.default_address.address2;
+              customers[i].town = customers[i].customer.default_address.city;
             }
           }
           models.customer.countFullSearch(req, res, next, req.query.search, function (req, res, next, count) {
             var params = basicTemplateParams(req);
-            params.customer = customer;
+            params.customers = customers;
             params.search = req.query.search;
             params.pages = Math.ceil(count / config.tables.limit);
             params.currentPage = page;
