@@ -9,16 +9,39 @@ adminController.index = function (req, res, next) {
   if (req.query.page && Number.isInteger(parseInt(req.query.page)) && req.query.page > 0) {
     page = parseInt(req.query.page);
   }
-  models.customer.getLimited(req, res, next, config.tables.limit, page, function (req, res, next, customers) {
-    models.customer.countAll(req, res, next, function (req, res, next, count) {
-      var params = basicTemplateParams(req);
-      params.customers = customers;
-      params.search = '';
-      params.pages = Math.ceil(count / config.tables.limit);
-      params.currentPage = page;
-      res.render('admin-customers', params);
-    });
-  });
+      if (req.query.search) {
+        models.customer.getFullSearchLimitedPopulated(req, res, next, config.tables.limit, page, req.query.search, function (req, res, next, customer) {
+          for (var i in customers) {
+            if (customer[i].customer) {
+              customer[i].name = (customer[i].customer.company ? customer[i].customer.company + ' ' : '') + customer[i].customer.first_name + ' ' + customer[i].customer.last_name;
+              customer[i].number = customer[i].customer.default_address.phone;
+              customer[i].email = customer[i].customer.email;
+              customer[i].code = customer[i].customer.default_address.zip;
+              customer[i].street = customer[i].customer.default_address.address1 + ' ' + customer[i].customer.default_address.address2;
+              customer[i].town = customer[i].customer.default_address.city;
+            }
+          }
+          models.customer.countFullSearch(req, res, next, req.query.search, function (req, res, next, count) {
+            var params = basicTemplateParams(req);
+            params.customer = customer;
+            params.search = req.query.search;
+            params.pages = Math.ceil(count / config.tables.limit);
+            params.currentPage = page;
+            res.render('admin-customers', params);
+          });
+        });
+  } else {
+      models.customer.getLimited(req, res, next, config.tables.limit, page, function (req, res, next, customers) {
+          models.customer.countAll(req, res, next, function (req, res, next, count) {
+              var params = basicTemplateParams(req);
+              params.customers = customers;
+              params.search = '';
+              params.pages = Math.ceil(count / config.tables.limit);
+              params.currentPage = page;
+              res.render('admin-customers', params);
+          });
+      });
+  }
 };
 
 adminController.addFromQuote = function (req, res, next) {

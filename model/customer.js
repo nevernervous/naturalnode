@@ -118,6 +118,65 @@ CustomerSchema.statics.insertSingle = function (req, res, next, data, addresses,
   });
 };
 
+CustomerSchema.statics.getFullSearchLimitedPopulated = function (req, res, next, limit, page, search, callback) {
+  var regex = new RegExp(search, "i");
+  var find = {$or: [
+    {name: regex},
+    {number: regex},
+    {email: regex},
+    {code: regex},
+    {street: regex},
+    {town: regex},
+    {tiling: regex},
+    {size_1: regex},
+    {size_2: regex},
+    {size_3: regex},
+    {id_product: regex},
+    {quote_f: regex},
+    {quote_r: regex},
+    {title_product: regex},
+    {gclid: regex},
+    {subscribe: regex},
+    {notes: regex}
+  ]};
+  Customer.find(find).sort([['added', 'descending']]).populate('customer').limit(limit).skip(limit * (page - 1)).exec(function (err, customers) {
+    if (err) {
+      return next(err);
+    }
+    callback(req, res, next, customers);
+  });
+};
+
+CustomerSchema.statics.countFullSearch = function (req, res, next, search, callback) {
+  var regex = new RegExp(search, "i");
+  var find = {$or: [
+    {name: regex},
+    {number: regex},
+    {email: regex},
+    {code: regex},
+    {street: regex},
+    {town: regex},
+    {tiling: regex},
+    {size_1: regex},
+    {size_2: regex},
+    {size_3: regex},
+    {id_product: regex},
+    {quote_f: regex},
+    {quote_r: regex},
+    {title_product: regex},
+    {gclid: regex},
+    {subscribe: regex},
+    {notes: regex}
+  ]};
+  Customer.count(find, function (err, count) {
+    if (err) {
+      return next(err);
+    }
+    callback(req, res, next, count);
+  });
+};
+
+
 CustomerSchema.statics.getAll = function (req, res, next, callback) {
   Customer.find().sort([['added', 'descending']]).exec(function (err, customers) {
     if (err) {
