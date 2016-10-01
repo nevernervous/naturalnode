@@ -190,6 +190,18 @@ SampleSchema.statics.getFullSearchLimitedPopulated = function (req, res, next, l
   });
 };
 
+//
+// retrieve all samples for this customer email
+// 
+SampleSchema.statics.getByCustomerEmail = function ( email, callback) {
+  Sample.find( {'email': email }).exec(function (err, sample) {
+    if (err) {
+      return callback( err );
+    }
+    return callback( null, sample );
+  });
+};
+
 var Sample = mongoose.model('Sample', SampleSchema);
 
 module.exports = Sample;

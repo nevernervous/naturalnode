@@ -172,7 +172,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Comments</label>
                             <div class="col-md-8">
-                                <textarea class="form-control" name="comments"><%= customer.comments3 %></textarea>
+                                <textarea class="form-control" name="comments"><%= customer.comments %></textarea>
                             </div>
                         </div>
                 </div>
@@ -190,5 +190,84 @@
         <!-- END FORM-->
     </div>
 </div>
+
+
+<div class="portlet box dark">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Quotes
+        </div>
+    </div>
+    <div class="portlet-body flip-scroll">
+        <table class="table table-bordered table-striped table-condensed flip-content">
+            <thead class="flip-content">
+                <tr>
+                    <th>Tiling</th>
+                    <th>Size</th>
+                    <th>Size 3</th>
+                    <th>Product name</th>
+                    <th>Id product</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (i in customer.quotes) { %>
+                <tr>
+                    <td><a href="/admin/quotes/<%= customer.quotes[i]._id %>"><%= customer.quotes[i].tiling %></a></td>
+                    <td><a href="/admin/quotes/<%= customer.quotes[i]._id %>"><%= customer.quotes[i].size_1 %> <%= customer.quotes[i].size_2 %></a></td>
+                    <td><a href="/admin/quotes/<%= customer.quotes[i]._id %>"><%= customer.quotes[i].size_3 %></a></td>
+                    <td><%= customer.quotes[i].title_product %></td>
+                    <td>
+                        <% if(customer.quotes[i].size_3){ %>
+                            <a target="_blank" href="https://naturalstone.myshopify.com/admin/products/<%= customer.quotes[i].id_product %>/variants/<%= customer.quotes[i].size_3 %>"><%= customer.quotes[i].id_product %></a>
+                        <% } else{ %>
+                            <a target="_blank" href="https://naturalstone.myshopify.com/admin/products/<%= customer.quotes[i].id_product %>"><%= customer.quotes[i].id_product %></a>
+                        <% } %>
+                    </td>
+                    <td><a href="/admin/quotes/<%= customer.quotes[i]._id %>"><%= datetimeFormater(customer.quotes[i].added, 'll') %></a></td>  
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+<div class="portlet box dark">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Samples
+        </div>
+    </div>
+     <div class="portlet-body flip-scroll">
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content">
+                    <tr>
+                        <th>Tiling</th>
+                        <th>Size</th>
+                        <th>Size 3</th>
+                        <th>Id product</th>
+                        <th>Added</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (i in customer.samples) { %>
+                    <tr>
+                        <td><a href="/admin/samples/<%= customer.samples[i]._id %>"><%= customer.samples[i].tiling %></a></td>
+                        <td><a href="/admin/samples/<%= customer.samples[i]._id %>"><%= customer.samples[i].size_1 %> <%= customer.samples[i].size_2 %></a></td>
+                        <td><a href="/admin/samples/<%= customer.samples[i]._id %>"><%= customer.samples[i].size_3 %></a></td>
+                        <td>
+                            <% if(customer.samples[i].size_3){ %>
+                                <a target="_blank" href="https://naturalstone.myshopify.com/admin/products/<%= customer.samples[i].id_product %>/variants/<%= customer.samples[i].size_3 %>"><%= customer.samples[i].id_product %></a>
+                            <% } else{ %>
+                                <a target="_blank" href="https://naturalstone.myshopify.com/admin/products/<%= customer.samples[i].id_product %>"><%= customer.samples[i].id_product %></a>
+                            <% } %>
+                        </td>
+                        <td><a href="/admin/samples/<%= customer.samples[i]._id %>"><%= datetimeFormater(customer.samples[i].added, 'll') %></a></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+</div>        
 
 <%- include _admin-footer -%>

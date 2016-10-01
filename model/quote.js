@@ -199,6 +199,18 @@ QuoteSchema.statics.countAll = function (req, res, next, callback) {
   });
 };
 
+//
+// retrieve all quotes for this customer email
+// 
+QuoteSchema.statics.getByCustomerEmail = function ( email, callback) {
+  Quote.find( {'email': email }).exec(function (err, quote) {
+   if (err) {
+      return callback( err );
+    }
+    return callback( null, quote );
+  });
+};
+
 var Quote = mongoose.model('Quote', QuoteSchema);
 
 module.exports = Quote;

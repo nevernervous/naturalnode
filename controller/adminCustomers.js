@@ -1,6 +1,7 @@
 var flashMessages = require('./helper/admin-flashMessages');
 var basicTemplateParams = require('./helper/admin-basicTemplateParams')(flashMessages);
 var config = require('../config');
+var objectModifier = require('./helper/objectModifier');
 
 var adminController = {};
 
@@ -168,8 +169,47 @@ adminController.edit = function (req, res, next) {
       });
     } else {
       var params = basicTemplateParams(req);
-      params.customer = customer;
-      res.render('admin-customer-edit', params);
+
+      //
+      // mongoose object is read only object. convert it and add new properties 
+      //
+      var customerQuoteSamples = customer.toObject();
+
+      //
+      // add new properties to customer object
+      //
+      var propertiesQuotesSample = [ "quotes", "samples" ];
+      var customerObjectModifier = new objectModifier();
+      customerObjectModifier.addArrayPropertiesToObject( customerQuoteSamples,
+                                                         propertiesQuotesSample );
+
+
+      //
+      // retrieve quotes and samples data based on the customer email
+      // 
+      models.sample.getByCustomerEmail( customerQuoteSamples.email, function( err, samples ){
+
+        if ( err ) {
+          return next( err );
+        }
+
+        customerQuoteSamples.samples = samples;
+
+        models.quote.getByCustomerEmail( customerQuoteSamples.email, function( err, quotes ){
+
+            if ( err ) {
+              return next( err );
+            }
+
+            customerQuoteSamples.quotes = quotes;
+            params.customer = customerQuoteSamples;
+
+            //
+            // render a modified customer object
+            //
+            res.render( 'admin-customer-edit', params );
+        });
+      });
     }
   });
 };
