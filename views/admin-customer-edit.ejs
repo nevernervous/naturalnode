@@ -246,6 +246,7 @@
                         <th>Size</th>
                         <th>Size 3</th>
                         <th>Id product</th>
+                        <th>Title Product</th>
                         <th>Added</th>
                     </tr>
                 </thead>
@@ -262,6 +263,7 @@
                                 <a target="_blank" href="https://naturalstone.myshopify.com/admin/products/<%= customer.samples[i].id_product %>"><%= customer.samples[i].id_product %></a>
                             <% } %>
                         </td>
+                        <td><%= customer.samples[i].title_product %></td>
                         <td><a href="/admin/samples/<%= customer.samples[i]._id %>"><%= datetimeFormater(customer.samples[i].added, 'll') %></a></td>
                     </tr>
                     <% } %>
