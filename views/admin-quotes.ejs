@@ -63,13 +63,14 @@
                     <td><a href="/admin/quotes/<%= quotes[i]._id %>"><%= datetimeFormater(quotes[i].added, 'll') %></a></td>
                     <td><%= quotes[i].status %></td>
                     <td>
-                        <form method="post" action="/admin/customers/from-quote/<%= quotes[i]._id %>">
-                            <% if (quotes[i].email != quotes[i].email2) { %>
-                                <button type="submit" class="btn btn-sm default">Create</button>
-                            <% } else { %>
-                                <button class="btn btn-sm btn-warning">Exists</button>
+                        <% if (quotes[i].email != quotes[i].email2) { %>
+                            <form method="post" action="/admin/customers/from-quote/<%= quotes[i]._id %>">
+                                    <button type="submit" class="btn btn-sm default">Create</button>
+                            </form>
+                        <% } else { %>
+                                <button class="btn btn-sm btn-warning">Created</button>
                             <% } %>
-                        </form>
+
                     </td>
                     <td class="text-right"><a href="/admin/quotes/<%= quotes[i]._id %>/edit" class="btn btn-sm default next">Edit <i class="fa fa-pencil"></i></a></td>
                 </tr>
