@@ -22,6 +22,7 @@ adminController.quotesList = function (req, res, next) {
           quotes[i].code = quotes[i].customer.default_address.zip;
           quotes[i].street = quotes[i].customer.default_address.address1 + ' ' + quotes[i].customer.default_address.address2;
           quotes[i].town = quotes[i].customer.default_address.city;
+          quotes[i].email2 = quotes[i].customer.email;
         }
       }
       models.quote.countFullSearch(req, res, next, req.query.search, function (req, res, next, count) {
