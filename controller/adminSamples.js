@@ -22,6 +22,7 @@ adminController.samplesList = function (req, res, next) {
           samples[i].code = samples[i].customer.default_address.zip;
           samples[i].town = samples[i].customer.default_address.city;
           samples[i].number = samples[i].customer.default_address.phone;
+          samples[i].email2 = samples[i].customer.email;
         }
       }
       models.sample.countFullSearch(req, res, next, req.query.search, function (req, res, next, count) {
@@ -43,6 +44,7 @@ adminController.samplesList = function (req, res, next) {
           samples[i].code = samples[i].customer.default_address.zip;
           samples[i].street = samples[i].customer.default_address.address1 + ' ' + samples[i].customer.default_address.address2;
           samples[i].town = samples[i].customer.default_address.city;
+          samples[i].email2 = samples[i].customer.email;
         }
       }
       models.sample.countAll(req, res, next, function (req, res, next, count) {

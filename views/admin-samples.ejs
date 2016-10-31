@@ -59,9 +59,13 @@
                     </td>
                     <td><a href="/admin/samples/<%= samples[i]._id %>"><%= datetimeFormater(samples[i].added, 'll') %></a></td>
                         <td>
-                            <form method="post" action="/admin/customers/from-sample/<%= samples[i]._id %>">
-                                <button type="submit" class="btn btn-sm default">Create</button>
-                            </form>
+                            <% if (samples[i].email != samples[i].email2) { %>
+                                <form method="post" action="/admin/customers/from-sample/<%= samples[i]._id %>">
+                                    <button type="submit" class="btn btn-sm default">Create</button>
+                                </form>
+                            <% } else { %>
+                                <button class="btn btn-sm btn-warning">Created</button>
+                            <% } %>
                         </td>
                     <td class="text-right">
                         <% if(samples[i].sent){ %> Sent <% } else{ %>
