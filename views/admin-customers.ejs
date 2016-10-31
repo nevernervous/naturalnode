@@ -37,6 +37,7 @@
                     <th>2nd call</th>
                     <th>3rd call</th>
                     <th>Edit</th>
+                    <th>Archive</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,6 +62,8 @@
                             <input type="checkbox" name="call3rd" value="1" <%= customers[i].call3rd ? 'checked' : '' %> onChange="this.form.submit()" />
                     </form></td>
                     <td class="text-right"><a href="/admin/customers/<%= customers[i]._id %>/edit" class="btn btn-sm default next">Edit <i class="fa fa-pencil"></i></a></td>
+                    <td><form method="post" action="/admin/customers/<%= customers[i]._id %>/archive">
+                            <button type="submit" name="archive" class="btn btn-sm default next">Archive <i class="fa fa-archive"></i></button></form></td>
                 </tr>
                 <% } %>
             </tbody>

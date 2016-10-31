@@ -183,6 +183,14 @@ router.post('/customers/:id/edit', function (req, res, next) {
   }
 });
 
+router.post('/customers/:id/archive', function (req, res, next) {
+  if (req.isAuthenticated()) {
+    controllers.adminCustomers.archive(req, res, next);
+  } else {
+    res.redirect('/admin/login');
+  }
+});
+
 router.get('/login', function (req, res, next) {
   return controllers.admin.login(req, res, next);
 });

@@ -30,7 +30,7 @@ var CustomerSchema = new Schema({
   first_name: {type: String, required: false},
   last_name: {type: String, required: false},
   orders_count: {type: Number, required: false},
-  state: {type: String, required: false},
+  state: {type: Boolean, required: false},
   total_spent: {type: String, required: false},
   last_order_id: {type: Number, required: false},
   note: {type: String, required: false},
@@ -164,7 +164,7 @@ CustomerSchema.statics.getAll = function (req, res, next, callback) {
 };
 
 CustomerSchema.statics.getLimited = function (req, res, next, limit, page, callback) {
-  Customer.find().sort([['added', 'descending']]).limit(limit).skip(limit * (page - 1)).exec(function (err, customers) {
+  Customer.find({"state":null}).sort([['added', 'descending']]).limit(limit).skip(limit * (page - 1)).exec(function (err, customers) {
     if (err) {
       return next(err);
     }

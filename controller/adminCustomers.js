@@ -13,7 +13,7 @@ adminController.index = function (req, res, next) {
       if (req.query.search) {
         models.customer.getFullSearchLimitedPopulated(req, res, next, config.tables.limit, page, req.query.search, function (req, res, next, customers) {
           for (var i in customers) {
-            if (customers[i].customers) {
+            if (customers[i].customers ) {
               customers[i].name = (customers[i].customer.company ? customers[i].customer.company + ' ' : '') + customers[i].customer.first_name + ' ' + customers[i].customer.last_name;
               customers[i].number = customers[i].customer.default_address.phone;
               customers[i].email = customers[i].customer.email;
@@ -211,6 +211,25 @@ adminController.edit = function (req, res, next) {
         });
       });
     }
+  });
+};
+
+adminController.archive = function (req, res, next) {
+  models.customer.getById(req, res, next, req.params.id, function (req, res, next, customer) {
+    if (!customer) {
+      var error = new Error('Not found');
+      error.status = 404;
+      return next(error);
+    }
+      if (req.method.toString().toLowerCase().valueOf() == "post") {
+        var dataSet = customer;
+          dataSet.state = true;
+        models.customer.updateById(req, res, next, customer._id, dataSet, function () {
+          console.log(dataSet);
+          req.flash('success', 'Saved');
+          return res.redirect(req.header('Referer'));
+        });
+      }
   });
 };
 
