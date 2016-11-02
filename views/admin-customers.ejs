@@ -50,8 +50,13 @@
                     <td><%= customers[i].default_address.city %></td>
                     <td><%= customers[i].default_address.zip %></td>
                     <td><form method="post" action="/admin/customers/<%= customers[i]._id %>/edit">
-                            <input type="hidden" name="call1" value="1" />
-                            <input type="checkbox" name="call1st" value="1" <%= customers[i].call1st ? 'checked' : '' %> onChange="this.form.submit()" />
+                            <select class="form-control" name="call1status" onChange="this.form.submit()">
+                                <option value="0" <%= (customers[i].call1status != null && customers[i].call1status == 0) ? 'selected' : '' %> >No call</option>
+                                <option value="1"<%= (customers[i].call1status != null && customers[i].call1status == 4) || (customers[i].call1st != null && !customers[i].call1st) ? 'selected' : '' %> >No answer</option>
+                                <option value="2" <%= (customers[i].call1status != null && customers[i].call1status == 2) ? 'selected' : '' %> >Called</option>
+                                <option value="3" <%= (customers[i].call1status != null && customers[i].call1status == 3) ? 'selected' : '' %> >Left message</option>
+                                <option value="4" <%= (customers[i].call1status != null && customers[i].call1status == 4) || (customers[i].call1st != null && customers[i].call1st) ? 'selected' : '' %> >Made contact</option>
+                              </select>
                     </form></td>
                     <td><form method="post" action="/admin/customers/<%= customers[i]._id %>/edit">
                             <input type="hidden" name="call2" value="1" />

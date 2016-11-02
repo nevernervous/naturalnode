@@ -51,6 +51,7 @@ var CustomerSchema = new Schema({
   contactToClientDate3: {type: String, default: null, required: false},
   clientRepliedDate3: {type: String, default: null, required: false},
   call1st: {type: Boolean, default: false, required: false},
+  call1status: {type: Number, default: null, required: false},
   call2nd: {type: Boolean, default: false, required: false},
   call3rd: {type: Boolean, default: false, required: false},
   added: {type: Date, default: Date.now, required: true}
@@ -121,13 +122,13 @@ CustomerSchema.statics.insertSingle = function (req, res, next, data, addresses,
 CustomerSchema.statics.getFullSearchLimitedPopulated = function (req, res, next, limit, page, search, callback) {
   var regex = new RegExp(search, "i");
   var find = {$or: [
-    {name: regex},
-    {number: regex},
-    {email: regex},
-    {code: regex},
-    {street: regex},
-    {town: regex}
-  ]};
+      {name: regex},
+      {number: regex},
+      {email: regex},
+      {code: regex},
+      {street: regex},
+      {town: regex}
+    ]};
   Customer.find(find).sort([['added', 'descending']]).populate('customer').limit(limit).skip(limit * (page - 1)).exec(function (err, customers) {
     if (err) {
       return next(err);
@@ -139,12 +140,12 @@ CustomerSchema.statics.getFullSearchLimitedPopulated = function (req, res, next,
 CustomerSchema.statics.countFullSearch = function (req, res, next, search, callback) {
   var regex = new RegExp(search, "i");
   var find = {$or: [
-    {name: regex},
-    {email: regex},
-    {code: regex},
-    {street: regex},
-    {town: regex}
-  ]};
+      {name: regex},
+      {email: regex},
+      {code: regex},
+      {street: regex},
+      {town: regex}
+    ]};
   Customer.count(find, function (err, count) {
     if (err) {
       return next(err);
@@ -164,7 +165,7 @@ CustomerSchema.statics.getAll = function (req, res, next, callback) {
 };
 
 CustomerSchema.statics.getLimited = function (req, res, next, limit, page, callback) {
-  Customer.find({"state":null}).sort([['added', 'descending']]).limit(limit).skip(limit * (page - 1)).exec(function (err, customers) {
+  Customer.find({"state": null}).sort([['added', 'descending']]).limit(limit).skip(limit * (page - 1)).exec(function (err, customers) {
     if (err) {
       return next(err);
     }

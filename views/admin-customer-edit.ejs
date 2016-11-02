@@ -59,8 +59,13 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">1st call</label>
                         <div class="col-md-4">
-                            <input type="hidden" name="call1" value="1" />
-                            <input type="checkbox" name="call1st" value="1" <%= customer.call1st ? 'checked' : '' %> />
+                            <select class="form-control" name="call1status">
+                                <option value="0" <%= (customer.call1status != null && customer.call1status == 0) ? 'selected' : '' %> >No call</option>
+                                <option value="1"<%= ((customer.call1status != null && customer.call1status == 4) || (customer.call1st != null && !customer.call1st)) ? 'selected' : '' %> >No answer</option>
+                                <option value="2" <%= (customer.call1status != null && customer.call1status == 2) ? 'selected' : '' %> >Called</option>
+                                <option value="3" <%= (customer.call1status != null && customer.call1status == 3) ? 'selected' : '' %> >Left message</option>
+                                <option value="4" <%= ((customer.call1status != null && customer.call1status == 4) || (customer.call1st != null && customer.call1st)) ? 'selected' : '' %> >Made contact</option>
+                              </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -224,12 +229,12 @@
                             <a target="_blank" href="https://naturalstone.myshopify.com/admin/products/<%= customer.quotes[i].id_product %>"><%= customer.quotes[i].id_product %></a>
                         <% } %>
                     </td>
-                    <td><a href="/admin/quotes/<%= customer.quotes[i]._id %>"><%= datetimeFormater(customer.quotes[i].added, 'll') %></a></td>  
+                    <td><a href="/admin/quotes/<%= customer.quotes[i]._id %>"><%= datetimeFormater(customer.quotes[i].added, 'll') %></a></td>
                 </tr>
                 <% } %>
             </tbody>
         </table>
-        
+
     </div>
 </div>
 <div class="portlet box dark">
@@ -270,6 +275,6 @@
                 </tbody>
             </table>
         </div>
-</div>        
+</div>
 
 <%- include _admin-footer -%>

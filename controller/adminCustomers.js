@@ -10,38 +10,38 @@ adminController.index = function (req, res, next) {
   if (req.query.page && Number.isInteger(parseInt(req.query.page)) && req.query.page > 0) {
     page = parseInt(req.query.page);
   }
-      if (req.query.search) {
-        models.customer.getFullSearchLimitedPopulated(req, res, next, config.tables.limit, page, req.query.search, function (req, res, next, customers) {
-          for (var i in customers) {
-            if (customers[i].customers) {
-              customers[i].name = (customers[i].customer.company ? customers[i].customer.company + ' ' : '') + customers[i].customer.first_name + ' ' + customers[i].customer.last_name;
-              customers[i].number = customers[i].customer.default_address.phone;
-              customers[i].email = customers[i].customer.email;
-              customers[i].code = customers[i].customer.default_address.zip;
-              customers[i].street = customers[i].customer.default_address.address1 + ' ' + customers[i].customer.default_address.address2;
-              customers[i].town = customers[i].customer.default_address.city;
-            }
-          }
-          models.customer.countFullSearch(req, res, next, req.query.search, function (req, res, next, count) {
-            var params = basicTemplateParams(req);
-            params.customers = customers;
-            params.search = req.query.search;
-            params.pages = Math.ceil(count / config.tables.limit);
-            params.currentPage = page;
-            res.render('admin-customers', params);
-          });
-        });
-  } else {
-      models.customer.getLimited(req, res, next, config.tables.limit, page, function (req, res, next, customers) {
-          models.customer.countAll(req, res, next, function (req, res, next, count) {
-              var params = basicTemplateParams(req);
-              params.customers = customers;
-              params.search = '';
-              params.pages = Math.ceil(count / config.tables.limit);
-              params.currentPage = page;
-              res.render('admin-customers', params);
-          });
+  if (req.query.search) {
+    models.customer.getFullSearchLimitedPopulated(req, res, next, config.tables.limit, page, req.query.search, function (req, res, next, customers) {
+      for (var i in customers) {
+        if (customers[i].customers) {
+          customers[i].name = (customers[i].customer.company ? customers[i].customer.company + ' ' : '') + customers[i].customer.first_name + ' ' + customers[i].customer.last_name;
+          customers[i].number = customers[i].customer.default_address.phone;
+          customers[i].email = customers[i].customer.email;
+          customers[i].code = customers[i].customer.default_address.zip;
+          customers[i].street = customers[i].customer.default_address.address1 + ' ' + customers[i].customer.default_address.address2;
+          customers[i].town = customers[i].customer.default_address.city;
+        }
+      }
+      models.customer.countFullSearch(req, res, next, req.query.search, function (req, res, next, count) {
+        var params = basicTemplateParams(req);
+        params.customers = customers;
+        params.search = req.query.search;
+        params.pages = Math.ceil(count / config.tables.limit);
+        params.currentPage = page;
+        res.render('admin-customers', params);
       });
+    });
+  } else {
+    models.customer.getLimited(req, res, next, config.tables.limit, page, function (req, res, next, customers) {
+      models.customer.countAll(req, res, next, function (req, res, next, count) {
+        var params = basicTemplateParams(req);
+        params.customers = customers;
+        params.search = '';
+        params.pages = Math.ceil(count / config.tables.limit);
+        params.currentPage = page;
+        res.render('admin-customers', params);
+      });
+    });
   }
 };
 
@@ -50,8 +50,8 @@ adminController.addFromQuote = function (req, res, next) {
     if (!quote.customer) {
       adminController.createNewFromSampleOrQuote(req, res, next, quote);
     } else {
-        req.flash('warning', 'Customer already exists');
-        return res.redirect(req.header('Referer'));
+      req.flash('warning', 'Customer already exists');
+      return res.redirect(req.header('Referer'));
     }
   });
 };
@@ -61,8 +61,8 @@ adminController.addFromSample = function (req, res, next) {
     if (!sample.customer) {
       adminController.createNewFromSampleOrQuote(req, res, next, sample);
     } else {
-        req.flash('warning', 'Customer already exists');
-        return res.redirect(req.header('Referer'));
+      req.flash('warning', 'Customer already exists');
+      return res.redirect(req.header('Referer'));
     }
   });
 };
@@ -106,6 +106,9 @@ adminController.edit = function (req, res, next) {
     }
     if (req.method.toString().toLowerCase().valueOf() == "post") {
       var dataSet = customer;
+      if (req.body.call1status) {
+        dataSet['call1status'] = req.body['call1status'];
+      }
       if (req.body.call1) {
         dataSet['call1st'] = req.body['call1st'] ? true : false;
       }
@@ -171,43 +174,43 @@ adminController.edit = function (req, res, next) {
       var params = basicTemplateParams(req);
 
       //
-      // mongoose object is read only object. convert it and add new properties 
+      // mongoose object is read only object. convert it and add new properties
       //
       var customerQuoteSamples = customer.toObject();
 
       //
       // add new properties to customer object
       //
-      var propertiesQuotesSample = [ "quotes", "samples" ];
+      var propertiesQuotesSample = ["quotes", "samples"];
       var customerObjectModifier = new objectModifier();
-      customerObjectModifier.addArrayPropertiesToObject( customerQuoteSamples,
-                                                         propertiesQuotesSample );
+      customerObjectModifier.addArrayPropertiesToObject(customerQuoteSamples,
+        propertiesQuotesSample);
 
 
       //
       // retrieve quotes and samples data based on the customer email
-      // 
-      models.sample.getByCustomerEmail( customerQuoteSamples.email, function( err, samples ){
+      //
+      models.sample.getByCustomerEmail(customerQuoteSamples.email, function (err, samples) {
 
-        if ( err ) {
-          return next( err );
+        if (err) {
+          return next(err);
         }
 
         customerQuoteSamples.samples = samples;
 
-        models.quote.getByCustomerEmail( customerQuoteSamples.email, function( err, quotes ){
+        models.quote.getByCustomerEmail(customerQuoteSamples.email, function (err, quotes) {
 
-            if ( err ) {
-              return next( err );
-            }
+          if (err) {
+            return next(err);
+          }
 
-            customerQuoteSamples.quotes = quotes;
-            params.customer = customerQuoteSamples;
+          customerQuoteSamples.quotes = quotes;
+          params.customer = customerQuoteSamples;
 
-            //
-            // render a modified customer object
-            //
-            res.render( 'admin-customer-edit', params );
+          //
+          // render a modified customer object
+          //
+          res.render('admin-customer-edit', params);
         });
       });
     }
@@ -221,14 +224,14 @@ adminController.archive = function (req, res, next) {
       error.status = 404;
       return next(error);
     }
-      if (req.method.toString().toLowerCase().valueOf() == "post") {
-        var dataSet = customer;
-          dataSet.state = true;
-        models.customer.updateById(req, res, next, customer._id, dataSet, function () {
-          req.flash('success', 'Saved');
-          return res.redirect(req.header('Referer'));
-        });
-      }
+    if (req.method.toString().toLowerCase().valueOf() == "post") {
+      var dataSet = customer;
+      dataSet.state = true;
+      models.customer.updateById(req, res, next, customer._id, dataSet, function () {
+        req.flash('success', 'Saved');
+        return res.redirect(req.header('Referer'));
+      });
+    }
   });
 };
 
