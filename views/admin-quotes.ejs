@@ -36,6 +36,8 @@
                     <th>Tiling</th>
                     <th>Size</th>
                     <th>Product name</th>
+                    <th>Fitting</th>
+                    <th>Adhesive</th>
                     <th>Id product</th>
                     <th>Date</th>
                     <th>Status</th>
@@ -60,6 +62,8 @@
                             <a target="_blank" href="https://naturalstone.myshopify.com/admin/products/<%= quotes[i].id_product %>"><%= quotes[i].id_product %></a>
                         <% } %>
                     </td>
+                    <td><a href="/admin/quotes/<%= quotes[i]._id %>"><%= quotes[i].quote_f %></a></a></td>
+                    <td><a href="/admin/quotes/<%= quotes[i]._id %>"><%= quotes[i].quote_r %></a></a></td>
                     <td><a href="/admin/quotes/<%= quotes[i]._id %>"><%= datetimeFormater(quotes[i].added, 'll') %></a></td>
                     <td><%= quotes[i].status %></td>
                     <td>
