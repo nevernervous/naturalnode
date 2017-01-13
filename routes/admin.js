@@ -200,4 +200,12 @@ router.post('/login', function (req, res, next) {
   return controllers.admin.authenticate(req, res, next);
 });
 
+router.get('/monthlydata', function (req, res, next) {
+  if (req.isAuthenticated()) {
+    controllers.admin.monthlyData(req, res, next);
+  } else {
+    res.redirect('/admin/login');
+  }
+});
+
 module.exports = router;

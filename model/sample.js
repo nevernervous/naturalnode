@@ -202,6 +202,21 @@ SampleSchema.statics.getByCustomerEmail = function ( email, callback) {
   });
 };
 
+SampleSchema.statics.getMonthlyCount = function (req, res, next, year, callback) {
+  var find = {
+    added: {
+      $gte: new Date("1 Jan," + year),
+      $lt: new Date("1 Jan," + (year + 1))
+    }};
+  Sample.find(find, {added: 1, _id: 0} ,function (err, samples) {
+    if (err) {
+      return next(err);
+    }
+    callback(req, res, next, samples);
+  });
+
+};
+
 var Sample = mongoose.model('Sample', SampleSchema);
 
 module.exports = Sample;

@@ -4,3 +4,9 @@
 .form-group-small .control-label{
 	padding-top: 0;
 }
+
+#chart-quote {
+    min-width: 310px;
+    height: 400px;
+    margin: 0 auto;
+}
