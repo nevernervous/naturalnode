@@ -5,8 +5,12 @@
 	padding-top: 0;
 }
 
-#chart-quote {
-    min-width: 310px;
-    height: 400px;
-    margin: 0 auto;
+/*#chart-quote {*/
+    /*min-width: 310px;*/
+    /*height: 400px;*/
+    /*margin: 0 auto;*/
+/*}*/
+
+.dashboard-bg {
+    background-color: #eff3f8;
 }

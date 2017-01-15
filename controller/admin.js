@@ -27,11 +27,11 @@ adminController.authenticate = function (req, res, next) {
 
 adminController.monthlyData = function (req, res, next) {
   var year = new Date().getFullYear();
-  var data={};
+  var data = {};
   data.quotes = new Array(12);
   data.samples = new Array(12);
 
-  models.quote.getMonthlyCount(req, res, next, year, function (req, res, next ,quotes) {
+  models.quote.getByYear(year).exec().then(function(quotes) {
     for(var i in quotes) {
       var date = new Date(quotes[i].added);
       if(data.quotes[date.getMonth()] == undefined) {
@@ -41,7 +41,7 @@ adminController.monthlyData = function (req, res, next) {
       }
     }
 
-    models.sample.getMonthlyCount(req, res, next, year, function (req, res, next ,samples) {
+    models.sample.getByYear(year).exec().then( function (samples) {
       for(var i in samples) {
         var date = new Date(samples[i].added);
         if(data.samples[date.getMonth()] == undefined) {
@@ -52,12 +52,40 @@ adminController.monthlyData = function (req, res, next) {
       }
       initUndefinedData(data.quotes);
       initUndefinedData(data.samples);
-      console.log(data.quotes);
       res.json(data);
     });
 
   });
-}
+};
+
+adminController.weeklyData = function (req, res, next) {
+  var data = {};
+  data.quotes = [];
+  data.samples = [];
+  data.categories = [];
+  var today = new Date();
+
+  var dateArray = [];
+  for (var i = 6; i >= 0; i--) {
+    dateArray.push(new Date(today.getTime() - i * 24 * 60 * 60 * 1000));
+    data.categories.push(dateArray[dateArray.length - 1].getDate());
+  }
+
+  Promise.all(dateArray.map(date => {
+    return models.quote.getCountByDate(date).exec().then(count => {
+      data.quotes.push(count);
+    })
+  })).then(() => {
+    Promise.all(dateArray.map(date => {
+      return models.sample.getCountByDate(date).exec().then(count => {
+        data.samples.push(count);
+      })
+    })).then(() => {
+        res.json(data);
+    });
+  });
+
+};
 
 var initUndefinedData = function (data) {
   var i;

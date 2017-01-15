@@ -208,4 +208,12 @@ router.get('/monthlydata', function (req, res, next) {
   }
 });
 
+router.get('/weeklyData', function (req, res, next) {
+  if (req.isAuthenticated()) {
+    controllers.admin.weeklyData(req, res, next);
+  } else {
+    res.redirect('/admin/login');
+  }
+});
+
 module.exports = router;

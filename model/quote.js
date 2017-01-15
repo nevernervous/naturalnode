@@ -211,17 +211,21 @@ QuoteSchema.statics.getByCustomerEmail = function ( email, callback) {
   });
 };
 
-QuoteSchema.statics.getMonthlyCount = function (req, res, next, year, callback) {
+QuoteSchema.statics.getByYear = function (year) {
     var find = {
         added: {
             $gte: new Date("1 1," + year),
             $lt: new Date("1 1," + (year + 1))
     }};
-    Quote.find(find, {added: 1, _id: 0} ,function (err, quotes) {
-        if (err) {
-            return next(err);
+    return Quote.find(find);
+
+}
+
+QuoteSchema.statics.getCountByDate = function (date) {
+    return Quote.count(
+        {added: {
+            $gte: date, $lt: new Date(date.getTime() + 24 * 60 * 60 * 1000)
         }
-        callback(req, res, next, quotes);
     });
 
 }
