@@ -68,7 +68,7 @@ adminController.weeklyData = function (req, res, next) {
   var dateArray = [];
   for (var i = 6; i >= 0; i--) {
     dateArray.push(new Date(today.getTime() - i * 24 * 60 * 60 * 1000));
-    data.categories.push(dateArray[dateArray.length - 1].getDate());
+    data.categories.push(dateArray[dateArray.length - 1].getDate() + 'th');
   }
 
   Promise.all(dateArray.map(date => {
