@@ -214,8 +214,8 @@ QuoteSchema.statics.getByCustomerEmail = function ( email, callback) {
 QuoteSchema.statics.getMonthlyCount = function (req, res, next, year, callback) {
     var find = {
         added: {
-            $gte: new Date("1 Jan," + year),
-            $lt: new Date("1 Jan," + (year + 1))
+            $gte: new Date("1 1," + year),
+            $lt: new Date("1 1," + (year + 1))
     }};
     Quote.find(find, {added: 1, _id: 0} ,function (err, quotes) {
         if (err) {

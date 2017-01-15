@@ -1,9 +1,8 @@
 /**
  * Created by Boleslaw on 1/13/2017.
  */
-var monthlyData;
 
-function requestData() {
+function requestMonthData() {
     $.get('/admin/monthlyData',function (data, status) {
         if(status == 'success') {
             Highcharts.chart( {
@@ -11,7 +10,7 @@ function requestData() {
                     renderTo: 'chart-quote',
                     // defaultSeriesType: 'spline',
                     // events: {
-                    //     load: requestData
+                    //     load: requestMonthData
                     // }
                 },
                 title: {
@@ -36,7 +35,7 @@ function requestData() {
                     }]
                 },
                 // tooltip: {
-                //     valueSuffix: '°C'
+                //     valueSuffix: ''
                 // },
                 legend: {
                     layout: 'vertical',
@@ -57,5 +56,5 @@ function requestData() {
 }
 
 $(function () {
-    requestData();
+    requestMonthData();
 });
