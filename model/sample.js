@@ -211,12 +211,34 @@ SampleSchema.statics.getByYear = function (year) {
   return Sample.find(find);
 };
 
+SampleSchema.statics.getByYearAndIdProduct = function (year, id) {
+  var find = {
+    added: {
+      $gte: new Date('1 1 ' + year),
+      $lt: new Date('1 1 ' + (year + 1))
+    },
+    id_product: id
+  };
+  return Sample.find(find);
+
+};
+
 SampleSchema.statics.getCountByDate = function (date) {
   return Sample.count({
       added: {
         $gte: date, $lt: new Date(date.getTime() + 24 * 60 * 60 * 1000)
       }
     });
+};
+
+SampleSchema.statics.getCountByDateAndIdProduct = function (date, id) {
+  return Sample.count({
+    added: {
+      $gte: date, $lt: new Date(date.getTime() + 24 * 60 * 60 * 1000)
+    },
+    id_product: id
+  });
+
 };
 
 var Sample = mongoose.model('Sample', SampleSchema);

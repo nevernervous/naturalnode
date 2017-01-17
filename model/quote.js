@@ -214,13 +214,34 @@ QuoteSchema.statics.getByCustomerEmail = function ( email, callback) {
 QuoteSchema.statics.getByYear = function (year) {
     var find = {
         added: {
-            $gte: new Date("1 1," + year),
-            $lt: new Date("1 1," + (year + 1))
+            $gte: new Date('1 1 ' + year),
+            $lt: new Date('1 1 ' + (year + 1))
     }};
     return Quote.find(find);
 
-}
+};
 
+QuoteSchema.statics.getByYearAndIdProduct = function (year, id) {
+    var find = {
+        added: {
+            $gte: new Date('1 1 ' + year),
+            $lt: new Date('1 1 ' + (year + 1))
+        },
+        id_product: id
+    };
+    return Quote.find(find);
+
+};
+
+
+QuoteSchema.statics.getCountByMonth = function (month, year) {
+    // var find = {
+    //     added: {
+    //         $gte: new Date('1 ' + month + ' ' + year),
+    //         $lt: new Date('1 ' + (month + 1) % 13 + ' ' + year)
+    //     }
+    // };
+}
 QuoteSchema.statics.getCountByDate = function (date) {
     return Quote.count(
         {added: {
@@ -228,8 +249,31 @@ QuoteSchema.statics.getCountByDate = function (date) {
         }
     });
 
-}
+};
 
+QuoteSchema.statics.getCountByDateAndIdProduct = function (date, id) {
+    return Quote.count({
+        added: {
+            $gte: date, $lt: new Date(date.getTime() + 24 * 60 * 60 * 1000)
+        },
+        id_product: id
+        });
+
+};
+
+QuoteSchema.statics.getProductNames = function () {
+    return Quote.aggregate([{
+            $group: {
+                _id: {
+                    title_product: '$title_product',
+                    id_product:'$id_product',
+                }
+            }
+        },
+        {$sort: {_id: 1}}
+    ]);
+
+};
 var Quote = mongoose.model('Quote', QuoteSchema);
 
 module.exports = Quote;

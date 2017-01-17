@@ -216,4 +216,28 @@ router.get('/weeklyData', function (req, res, next) {
   }
 });
 
+router.get('/itemNames', function (req, res, next) {
+  if (req.isAuthenticated()) {
+    controllers.admin.itemNames(req, res, next);
+  } else {
+    res.redirect('/admin/login');
+  }
+});
+
+router.get('/itemMonthData', function (req, res, next) {
+  if (req.isAuthenticated()) {
+    controllers.admin.itemMonthData(req, res, next);
+  } else {
+    res.redirect('/admin/login');
+  }
+});
+
+router.get('/itemWeekData', function (req, res, next) {
+  if (req.isAuthenticated()) {
+    controllers.admin.itemWeekData(req, res, next);
+  } else {
+    res.redirect('/admin/login');
+  }
+});
+
 module.exports = router;
