@@ -105,7 +105,9 @@ app.use(expressSession({
         console.error('connect-mongodb error');
         throw err;
       }
-    })
+    }),
+  resave: true,
+  saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
