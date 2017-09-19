@@ -31,7 +31,7 @@ adminController.leadsList = function (req, res, next) {
       });
     });
   } else {
- /*   models.lead.getLimitedPopulated(req, res, next, config.tables.limit, page, function (req, res, next, leads) {
+    models.lead.getLimitedPopulated(req, res, next, config.tables.limit, page, function (req, res, next, leads) {
       for (var i in leads) {
         if (leads[i].customer) {
           leads[i].name = leads[i].name;
@@ -48,7 +48,7 @@ adminController.leadsList = function (req, res, next) {
         res.render('admin-leads', params);
       });
     });
-  }*/
+  }
 };
 
 

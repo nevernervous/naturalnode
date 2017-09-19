@@ -1,0 +1,63 @@
+<%- include _admin-header -%>
+
+<div class="search-page search-content-1">
+</div>
+
+<div class="portlet box dark">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>leads
+        </div>
+    </div>
+    <div class="portlet-body flip-scroll">
+        <div class="search-bar">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for leads" name="search" value="<%= search %>" />
+                            <span class="input-group-btn">
+                                <button class="btn dark uppercase bold" type="submit">Search</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                    <p class="search-desc clearfix"></p>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped table-condensed flip-content">
+            <thead class="flip-content">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (i in leads) { %>
+                <tr>
+                    <td><a href="/admin/leads/<%= leads[i]._id %>"><%= leads[i].name %></a></a></td>
+                    <td><a href="/admin/leads/<%= leads[i]._id %>"><%= leads[i].email %></a></td>
+                    <td><a href="/admin/leads/<%= leads[i]._id %>"><%= leads[i].phone %></a></td>
+                    </td>
+                    <td class="text-right"><a href="/admin/leads/<%= leads[i]._id %>/edit" class="btn btn-sm default next">Edit <i class="fa fa-pencil"></i></a></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="dataTables_paginate paging_bootstrap_extended">
+            <div class="pagination-panel">
+                Page
+                <a href="/admin/leads/?page=<%= currentPage > 1 ? currentPage - 1 : 1 %><% if(search){ %>&search=<%= search %><% } %>" class="btn btn-sm default prev <%= currentPage > 1 ? '' : 'disabled' %>"><i class="fa fa-angle-left"></i></a>
+                <input type="text" class="pagination-panel-input form-control input-sm input-inline input-mini" maxlenght="5" value="<%= currentPage %>" style="text-align:center; margin: 0 5px;" onchange="var p = this.value; if (p && parseInt(p) % 1 == 0 && p > 0 && p <= < %= pages % > ){ window.location.href = '/admin/leads/?page=' + parseInt(p) + '<%- (search ? ' & search = ' + search : '') %>'; } else {this.value = < %= currentPage % > }">
+                <a href="/admin/leads/?page=<%= currentPage < pages ? currentPage + 1 : pages %><% if(search){ %>&search=<%= search %><% } %>" class="btn btn-sm default next <%= currentPage < pages ? '' : 'disabled' %>"><i class="fa fa-angle-right"></i></a>
+                of
+                <span class="pagination-panel-total"><%= pages %></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include _admin-footer -%>
