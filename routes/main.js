@@ -13,4 +13,8 @@ router.post('/add_free', function (req, res, next) {
   controllers.samples.add(req, res, next);
 });
 
+router.post('/add_leads', function(req, res, next) {
+  controllers.leads.add(req, res, next);
+});
+
 module.exports = router;

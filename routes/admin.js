@@ -95,6 +95,14 @@ router.post('/samples/:id/edit', function (req, res, next) {
   }
 });
 
+router.get('/leads', function (req, res, next) {
+  if (req.isAuthenticated()) {
+    controllers.adminLeads.leadsList(req, res, next);
+  } else {
+    res.redirect('/admin/login');
+  }
+});
+
 router.get('/users', function (req, res, next) {
   if (req.isAuthenticated()) {
     controllers.adminUsers.usersList(req, res, next);

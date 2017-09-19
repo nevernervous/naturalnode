@@ -1,4 +1,5 @@
 var quotesController = {};
+
 quotesController.add = function (req, res, next) {
   models.quote.insertSingle(req, res, next, req.body, function (res, res, next, quote) {
     res.setHeader('Access-Control-Allow-Origin', 'https://www.naturalstone.co.uk');
