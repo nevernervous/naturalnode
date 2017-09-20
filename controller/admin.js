@@ -89,7 +89,6 @@ adminController.weeklyData = function (req, res, next) {
       })
     })).then(() => {
         res.json(data);
-        console.log(data);
     });
   });
 
@@ -119,15 +118,13 @@ adminController.itemNames = function (req, res, next) {
 }
 
 adminController.itemMonthData = function (req, res, next) {
-  var id_product = req.param('id');
-  console.log(id_product);
+  var id_product = req.param.id;
   var year = new Date().getFullYear();
   var data = {};
   data.quotes = new Array(12);
   data.samples = new Array(12);
 
   models.quote.getByYearAndIdProduct(year, id_product).exec().then(function(quotes) {
-    console.log(quotes);
     for(var i in quotes) {
       var date = new Date(quotes[i].added);
       if(data.quotes[date.getMonth()] == undefined) {
@@ -156,7 +153,7 @@ adminController.itemMonthData = function (req, res, next) {
 };
 
 adminController.itemWeekData = function (req, res, next) {
-  var id_product = req.param('id');
+  var id_product = req.param.id;
   var data = {
     quotes: [],
     samples: [],
@@ -186,7 +183,6 @@ adminController.itemWeekData = function (req, res, next) {
       })
     })).then(() => {
       res.json(data);
-      console.log(data);
     });
   });
 

@@ -1,0 +1,43 @@
+<%- include _admin-header -%>
+
+<div class="portlet light form-fit bordered">
+    <div class="portlet-title">
+        <div class="caption"><i class="fa fa-user"></i>
+            <span class="caption-subject sbold uppercase">
+                Lead view
+            </span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <div class="form-horizontal form-row-seperated">
+            <div class="form-body">
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Name
+                    </div>
+                    <div class="col-md-10">
+                        <%= lead.name %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Email
+                    </div>
+                    <div class="col-md-10">
+                        <%= lead.email %>
+                    </div>
+                </div>
+                <div class="form-group form-group-small">
+                    <div class="col-md-2 control-label" style="text-align:left">
+                        Phone
+                    </div>
+                    <div class="col-md-10">
+                        <%= lead.phone %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include _admin-footer -%>
