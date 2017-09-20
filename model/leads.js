@@ -10,8 +10,22 @@ var LeadSchema = new Schema({
 
 });
 
+LeadSchema.statics.insertSingle = function (req, res, next, data, callback) {
+  Lead.create({
+    name: data.name,
+    email: data.email,
+    phone: data.phone,
+    added: data.added
+  }, function (err, lead) {
+    if (err) {
+      return next(err);
+    }
+    callback(req, res, next, lead);
+  });
+};
+
 LeadSchema.statics.getAllPopulated = function (req, res, next, callback) {
-  Lead.find().sort([['added', 'descending']]).populate('customer').exec(function (err, Leads) {
+  Lead.find().sort([['added', 'descending']]).populate('lead').exec(function (err, Leads) {
     if (err) {
       return next(err);
     }
@@ -38,7 +52,7 @@ LeadSchema.statics.getById = function (req, res, next, id, callback) {
 };
 
 LeadSchema.statics.getByIdPopulated = function (req, res, next, id, callback) {
-  Lead.findOne({'_id': id}).populate("customer").exec(function (err, Lead) {
+  Lead.findOne({'_id': id}).populate("lead").exec(function (err, Lead) {
     if (err) {
       return next(err);
     }
@@ -47,7 +61,7 @@ LeadSchema.statics.getByIdPopulated = function (req, res, next, id, callback) {
 };
 
 LeadSchema.statics.getLimitedPopulated = function (req, res, next, limit, page, callback) {
-  Lead.find().sort([['added', 'descending']]).populate("customer").limit(limit).skip(limit * (page - 1)).exec(function (err, Leads) {
+  Lead.find().sort([['added', 'descending']]).populate("lead").limit(limit).skip(limit * (page - 1)).exec(function (err, Leads) {
     if (err) {
       return next(err);
     }
@@ -95,7 +109,7 @@ LeadSchema.statics.getFullSearchLimitedPopulated = function (req, res, next, lim
       {email: regex},
       {phone: regex}
     ]};
-  Lead.find(find).sort([['added', 'descending']]).populate('customer').limit(limit).skip(limit * (page - 1)).exec(function (err, Leads) {
+  Lead.find(find).sort([['added', 'descending']]).populate('lead').limit(limit).skip(limit * (page - 1)).exec(function (err, Leads) {
     if (err) {
       return next(err);
     }
